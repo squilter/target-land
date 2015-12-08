@@ -1,16 +1,17 @@
-#!/usr/bin/python2
+#!/usr/bin/env python2
 import math
+
 import cv2
 import numpy as np
-from dronekit import connect, VehicleMode
+from dronekit import VehicleMode, connect
 
 #color settings
-hue_lower = 0#160
-hue_upper = 10
-saturation_lower = 200
-saturation_upper = 255
-value_lower = 50
-value_upper = 100
+hue_lower = 55
+hue_upper = 185
+saturation_lower = 110
+saturation_upper = 170
+value_lower = 190
+value_upper = 250
 min_contour_area = 500 # the smallest number of pixels in a contour before it will register this as a target
 
 #camera
@@ -21,7 +22,7 @@ vertical_resolution = 720
 
 camera = cv2.VideoCapture("./sololink.sdp")
 
-vehicle = connect('udpin:0.0.0.0:12345',wait_ready=True)
+vehicle = connect('udpin:0.0.0.0:14550',wait_ready=True)
 
 def send_land_message(x, y):
     msg = vehicle.message_factory.landing_target_encode(
@@ -48,7 +49,7 @@ while(1):
     for contour in contours:  
         real_area = cv2.contourArea(contour)
         if real_area > min_contour_area:
-            M = cv2.moments(contour) #an image moment is the weighted average of a blob
+            M = cv2.moments(contour) #moment is centroid
             cx,cy = int(M['m10']/M['m00']), int(M['m01']/M['m00'])
             cv2.circle(capture,(cx,cy),5,(0,0,255),-1)
             contour_sizes.append(real_area)
