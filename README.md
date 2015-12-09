@@ -21,15 +21,10 @@ Clone [ardupilot](github.com/diydrones/ardupilot) and `cd` into ArduCopter.  In 
 restart the Solo and wait a minute for the changes to take effect. If it doesn't work, try bumping the version number in the filename of `/firmware/ArduCopter-v2.px4` to be higher than the last firmware that was flashed (located in `./loaded`).
 
 ####parameters:
-Using you favorite GCS, change these parameters:
+Using you favorite GCS, load the parameters file. Using MAVProxy it looks like this:
 
-- `PLAND_ENABLE` = 1
-- `PLAND_TYPE` = 1 
-
-Also, it might be necessary to recalibrate. Make sure these parameters are correct:
-
-- `COMPASS_USE3` = 0
-- `COMPASS_ORIENT` = 38
+- `mavproxy.py --master=udpin:0.0.0.0:14550`
+- `param load ./params.param`
 
 Then do a compass calibration using the Solo app, not a traditional GCS.  A traditional GCS will do an offboard compass calibration, we want to do an onboard calibration.
 
