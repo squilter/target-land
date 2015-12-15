@@ -3,7 +3,7 @@ target-land
 
 This demo allows a 3DR Solo to land on a colorful object using only the quadcopter, the controller, a gopro and a laptop.  The CV runs offboard.
 
-TODO post video
+[Demo Video](https://youtu.be/PURlcAu6MEk)
 
 ###Setup instructions:
 ####video:
