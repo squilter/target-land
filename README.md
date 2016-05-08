@@ -7,11 +7,8 @@ This demo allows a 3DR Solo to land on a colorful object using only the quadcopt
 
 ###Setup instructions:
 ####video:
-The SDP file defines a network stream. Opening this file with VLC or opencv's `cv2.VideoCapture()` should work.  But it didn't when I tried it.  I think it was related to multicast. So I changed the settings to just send the video right to the IP address of my computer.  Note that this means the video will not display in the app anymore until the change is reverted.
+The SDP file defines a network stream. Opening this file with VLC or OpenCV's `cv2.VideoCapture()` should work. Before opening the network stream, we need to tell the controller to start streaming video. We do this by running `nc 10.1.1.1 5502` on the computer where we want to receive the video. Let that run in the background. TODO make the python script open this instead, so the user isn't bothered by this extra step.
 
-- ssh into the controller, `ssh root@10.1.1.1`
-- edit `/usr/bin/video_recv.sh`
-- find the line that starts with `sn_decoder start` and change the IP address from `127.0.0.1` to `10.1.1.XX` (your IP address)
 
 ####autopilot firmware:
 Clone [ardupilot](github.com/diydrones/ardupilot) and `cd` into ArduCopter.  In the file called `APM_Config.h`, find the line that says `//#define PRECISION_LANDING ENABLED`.  Uncomment this line.  Now compile with `make px4-v2`. The build output is in this folder, and it's called `ArduCopter-v2.px4`.  Now upload it to the Solo:
